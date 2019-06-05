@@ -1,14 +1,13 @@
-name: Persistent Homology in microbial communities
+name: Practice Repo
 output_dir: docs
 navbar:
   title: ''
   left:
   - text: About
     href: index.html
-  - text: Structures
-    href: structures.html
-  - text: Nectar Microbiomes
-    href: nmph.html
+  - text: Practice
+    href: first_rmarkdown.html
+
     
 output:
   html_document:
