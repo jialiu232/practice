@@ -393,10 +393,7 @@ div.tocify {
   <a href="index.html">About</a>
 </li>
 <li>
-  <a href="structures.html">Structures</a>
-</li>
-<li>
-  <a href="nmph.html">Nectar Microbiomes</a>
+  <a href="first_rmarkdown.html">Practice</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -435,6 +432,36 @@ div.tocify {
 <p>You can also embed plots, for example:</p>
 <p><img src="first_markdown_files/figure-html/pressure-1.png" width="672" /></p>
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+</div>
+<div id="simulating-communities" class="section level2">
+<h2>Simulating communities</h2>
+<p>Randomly generate abundance counts for 10 OTUs across 30 samples.</p>
+<pre class="r"><code>sim_community &lt;- matrix(sample(1:100, 300, replace=TRUE), 
+                        nrow = 10, ncol = 30,
+                        dimnames = list(
+                          paste(&quot;OTU&quot;, 1:10, sep = &quot;_&quot;),
+                          paste(&quot;Sample&quot;, 1:30, sep=&quot;_&quot;)
+                        )
+  
+)</code></pre>
+<p>Visualize the communities.</p>
+<pre class="r"><code>sim_community %&gt;% 
+  t() %&gt;% 
+  melt() %&gt;% 
+  ggplot(aes(x=Var1, y=fct_rev(Var2), fill = value))+
+  geom_tile(color = &quot;white&quot;)+
+  labs(x=element_blank(), y=&quot;&quot;, 
+       title = &quot;Community composition of simulated community&quot;) +
+  theme(axis.text.x = element_text(angle=90),
+        legend.position = &quot;none&quot;, axis.ticks = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank()) +
+  scale_x_discrete(label = function(x) str_replace(x, &quot;_&quot;, &quot; &quot;),
+                   expand = c(0,0))+
+  scale_y_discrete(label = function(x) str_replace(x, &quot;_&quot;, &quot; &quot;),
+                   expand = c(0,0))</code></pre>
+<p><img src="first_markdown_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 
 <p><br>
