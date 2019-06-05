@@ -6,7 +6,7 @@ navbar:
   - text: About
     href: index.html
   - text: Practice
-    href: first_rmarkdown.html
+    href: first_markdown.html
 
     
 output:
