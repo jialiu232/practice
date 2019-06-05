@@ -1,0 +1,8 @@
+"0","sim_community <- matrix(sample(1:100, 300, replace=TRUE), "
+"0","                        nrow = 10, ncol = 30,"
+"0","                        dimnames = list("
+"0","                          paste(""OTU"", 1:10, sep = ""_""),"
+"0","                          paste(""Sample"", 1:30, sep=""_"")"
+"0","                        )"
+"0","  "
+"0",")"
