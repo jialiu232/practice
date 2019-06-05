@@ -7,6 +7,13 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+library(reshape2)
+library(tidyverse)
+library(stringr)
+
+theme_set(theme_light())
 ```
 
 ## R Markdown
@@ -28,3 +35,40 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Simulating communities
+Randomly generate abundance counts for 10 OTUs across 30 samples. 
+
+```{r}
+sim_community <- matrix(sample(1:100, 300, replace=TRUE), 
+                        nrow = 10, ncol = 30,
+                        dimnames = list(
+                          paste("OTU", 1:10, sep = "_"),
+                          paste("Sample", 1:30, sep="_")
+                        )
+  
+)
+```
+
+Visualize the communities. 
+
+```{r}
+sim_community %>% 
+  t() %>% 
+  melt() %>% 
+  ggplot(aes(x=Var1, y=fct_rev(Var2), fill = value))+
+  geom_tile(color = "white")+
+  labs(x=element_blank(), y="", 
+       title = "Community composition of simulated community") +
+  theme(axis.text.x = element_text(angle=90),
+        legend.position = "none", axis.ticks = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank()) +
+  scale_x_discrete(label = function(x) str_replace(x, "_", " "),
+                   expand = c(0,0))+
+  scale_y_discrete(label = function(x) str_replace(x, "_", " "),
+                   expand = c(0,0))
+  
+```
+
